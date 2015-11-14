@@ -46,6 +46,7 @@ def extract_min():
     v_min = tbd_heap[0]
     tbd_heap[0] = tbd_heap.pop()
     down_heapify(0)
+    #heap_build(0)  
     return v_min
 
 def heap_insert(v):
@@ -68,11 +69,18 @@ def heap_delete(v):
 def heapify(v):
     idx = tbd_heap.index(v)
 
-    if idx > 0 and get_score(idx) < get_score(parent(idx)):
-        up_heapify(idx)
-    else:
-        down_heapify(idx)
+    #if idx > 0 and get_score(idx) < get_score(parent(idx)):
+    up_heapify(idx)
+    #else:
+    down_heapify(idx)
 
+def heap_build(idx):
+    if is_leaf(idx):
+        return
+    heap_build(left(idx))
+    if not left(idx) == len(tbd_heap) - 1:
+        heap_build(right(idx))
+    down_heapify(idx)
 
 def heap_pop():
     """
@@ -104,6 +112,7 @@ def heap_update(v):
             heap_insert(v_dst)
             """
             heapify(v_dst)
+            #heap_build(0)
             
 
 """
